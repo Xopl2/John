@@ -8,7 +8,14 @@ Built with React, Node.js/Express, and Ollama (local LLM).
 - AI: Ollama (Llama 3.1 8B)
 
 ## Personalities
-John contains multitudes. You never know which John you're getting.
+
+
+
+
+
+
+
+
 
 john/
 ├── frontend/          # React app (what users see)
