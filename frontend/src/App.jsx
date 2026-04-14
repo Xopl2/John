@@ -10,6 +10,11 @@ function App() {
   const [drawerOpen, setDrawerOpen] = useState(false)
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [personality, setPersonality] = useState("Victorian Ghost")
+  const [chatHistory, setChatHistory] = useState(() => {
+  const saved = localStorage.getItem('john-history')
+  return saved ? JSON.parse(saved) : []
+  })
+  const [sessionId, setSessionId] = useState(Date.now())
 
   // ── Handlers ───────────────────────────────────────────
   async function handleSend(message) {
@@ -34,6 +39,15 @@ function App() {
 
       // Replace typing indicator with real response
       setMessages([...newMessages, { role: "john", content: data.reply }])
+
+      // Save to localStorage
+      const updatedHistory = [
+        { id: sessionId, preview: message.slice(0, 40), messages: [...newMessages, { role: "john", content: data.reply }] },
+        ...chatHistory.filter(c => c.id !== sessionId)
+      ].slice(0, 10) // keep last 10 chats
+
+      setChatHistory(updatedHistory)
+      localStorage.setItem('john-history', JSON.stringify(updatedHistory))
 
     } catch (err) {
       setMessages([...newMessages, { role: "john", content: "John has left the building. Try again." }])
@@ -74,24 +88,41 @@ function App() {
         <div style={{ padding: "18px 16px 12px", borderBottom: "0.5px solid rgba(255,255,255,0.07)", display: "flex", alignItems: "center", justifyContent: "space-between", whiteSpace: "nowrap" }}>
           <span style={{ fontSize: "15px", fontWeight: 600, color: "rgba(255,255,255,0.9)" }}>John</span>
           {/* New chat button */}
-          <div onClick={() => { setStarted(false); setMessages([]) }} style={{ width: 28, height: 28, borderRadius: 6, background: "rgba(255,255,255,0.06)", border: "0.5px solid rgba(255,255,255,0.1)", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", color: "rgba(255,255,255,0.5)", fontSize: 16 }}>+</div>
+          <div onClick={() => { setStarted(false); setMessages([]); setSessionId(Date.now()) }} style={{ width: 28, height: 28, borderRadius: 6, background: "rgba(255,255,255,0.06)", border: "0.5px solid rgba(255,255,255,0.1)", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", color: "rgba(255,255,255,0.5)", fontSize: 16 }}>+</div>
         </div>
 
         {/* Recent chats label */}
         <div style={{ fontSize: 10, fontFamily: "monospace", color: "rgba(255,255,255,0.25)", letterSpacing: "0.08em", textTransform: "uppercase", padding: "14px 16px 6px", whiteSpace: "nowrap" }}>Recent</div>
 
         {/* Chat history list */}
-        <div style={{ flex: 1, overflowY: "auto", padding: "4px 8px" }}>
-          {["What is a PDF", "Help me with Excel", "Is soup sentient", "My feelings about Tuesdays", "Why does Wi-Fi exist"].map((item, i) => (
-            <div key={i} style={{ padding: "8px 10px", borderRadius: 8, fontSize: 13, color: "rgba(255,255,255,0.45)", cursor: "pointer", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", fontFamily: "monospace" }}>{item}</div>
-          ))}
+        {chatHistory.map((chat, i) => (
+        <div
+          key={i}
+          style={{ padding: "8px 10px", borderRadius: 8, fontSize: 13, color: "rgba(255,255,255,0.45)", cursor: "pointer", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", fontFamily: "monospace", display: "flex", alignItems: "center", justifyContent: "space-between" }}
+        >
+          <span
+            onClick={() => {
+              setMessages(chat.messages)
+              setSessionId(chat.id)
+              setStarted(true)
+            }}
+            style={{ flex: 1, overflow: "hidden", textOverflow: "ellipsis" }}
+          >
+            {chat.preview}
+          </span>
+          <span
+            onClick={(e) => {
+              e.stopPropagation()
+              const updated = chatHistory.filter(c => c.id !== chat.id)
+              setChatHistory(updated)
+              localStorage.setItem('john-history', JSON.stringify(updated))
+            }}
+            style={{ marginLeft: 8, color: "rgba(255,255,255,0.2)", fontSize: 11, flexShrink: 0, cursor: "pointer" }}
+          >
+            ✕
+          </span>
         </div>
-
-        {/* User info footer */}
-        <div style={{ padding: "12px 16px", borderTop: "0.5px solid rgba(255,255,255,0.07)", display: "flex", alignItems: "center", gap: 10 }}>
-          <div style={{ width: 28, height: 28, borderRadius: "50%", background: "rgba(255,255,255,0.1)", border: "0.5px solid rgba(255,255,255,0.15)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, color: "rgba(255,255,255,0.6)", fontFamily: "monospace" }}>QL</div>
-          <span style={{ fontSize: 13, color: "rgba(255,255,255,0.5)", fontFamily: "monospace" }}>quentin</span>
-        </div>
+      ))}
       </div>
 
       {/* ── Main UI ──────────────────────────────────────── */}
@@ -117,7 +148,7 @@ function App() {
             border: `0.5px solid ${started ? "rgba(255,255,255,0.12)" : "transparent"}`,
             transition: "all 0.3s ease"
           }}>
-            Mode Active
+            {personality}
           </span>
         </div>
 
