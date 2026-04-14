@@ -101,11 +101,11 @@ function App() {
 
         {/* ── Greeting Screen (before first message) ───────── */}
         {!started && (
-          <div style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 10 }}>
+          <div style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "flex-start", paddingTop: 150, gap: 10 }}>
             {/* Big John title - clicking opens personality drawer */}
             <div
               onClick={() => setDrawerOpen(!drawerOpen)}
-              style={{ fontFamily: "'Instrument Serif', serif", fontSize: 80, color: "white", fontStyle: "italic", cursor: "pointer", letterSpacing: "-0.02em", textShadow: "0 0 30px rgba(180,100,255,0.7), 0 0 60px rgba(100,180,255,0.35)" }}
+              style={{ fontFamily: "'Instrument Serif', serif", fontSize: 150, color: "white", fontStyle: "italic", cursor: "pointer", letterSpacing: "-0.02em", textShadow: "0 0 30px rgba(180,100,255,0.7), 0 0 60px rgba(100,180,255,0.35)" }}
             >John</div>
             <div style={{ fontSize: 12, fontFamily: "monospace", color: "rgba(255,255,255,0.3)", letterSpacing: "0.12em", textTransform: "uppercase" }}>expect the unexpected</div>
           </div>
@@ -151,7 +151,7 @@ function App() {
         {/* Centered + narrow before first message, full width at bottom after */}
         <div style={{
           position: started ? "relative" : "absolute",
-          bottom: started ? "auto" : "25%",
+          bottom: started ? "auto" : "40%",
           left: started ? "auto" : "50%",
           transform: started ? "none" : "translateX(-50%)",
           width: started ? "100%" : "min(560px, 90%)",

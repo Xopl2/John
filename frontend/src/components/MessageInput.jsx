@@ -17,8 +17,8 @@ function MessageInput({ onSend }) {
     <div style={{
       padding: "14px 20px 18px",
       display: "flex", gap: 10, alignItems: "center",
-      background: "rgba(4,0,15,0.4)", backdropFilter: "blur(24px)",
-      borderTop: "0.5px solid rgba(255,255,255,0.06)"
+      background: "none", backdropFilter: "none",
+      borderTop: "none"
     }}>
       <input
         value={value}
