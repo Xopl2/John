@@ -12,10 +12,32 @@ function App() {
   const [personality, setPersonality] = useState("Victorian Ghost")
 
   // ── Handlers ───────────────────────────────────────────
-  function handleSend(message) {
+  async function handleSend(message) {
     if (!message.trim()) return
     if (!started) setStarted(true)
-    setMessages([...messages, { role: "user", content: message }])
+
+    // Add user message
+    const newMessages = [...messages, { role: "user", content: message }]
+    setMessages(newMessages)
+
+    // Add a typing indicator
+    setMessages([...newMessages, { role: "john", content: "..." }])
+
+    try {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/chat`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message, personality })
+      })
+
+      const data = await response.json()
+
+      // Replace typing indicator with real response
+      setMessages([...newMessages, { role: "john", content: data.reply }])
+
+    } catch (err) {
+      setMessages([...newMessages, { role: "john", content: "John has left the building. Try again." }])
+    }
   }
 
   return (
