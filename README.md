@@ -8,10 +8,10 @@ Built with React, Node.js/Express, and Ollama (local LLM).
 - AI: Ollama (Llama 3.1 8B)
 
 ## Personalities
-Victorian ghost
-Pushy life coach
-Big soup agent
-roaster
-yes-and bot
-confidently wrong expert
+Victorian ghost, 
+Pushy life coach, 
+Big soup agent, 
+roaster, 
+yes-and bot, 
+confidently wrong expert, 
 
