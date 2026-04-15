@@ -184,7 +184,7 @@ function App() {
           <div style={{ fontSize: 10, fontFamily: "monospace", color: "rgba(255,255,255,0.25)", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 10 }}>John's current mode</div>
           {/* Personality chips - click to select */}
           <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
-            {["Victorian Ghost", "Life Coach", "Big Soup Agent", "Roaster", "Confident Expert", "Yes-And Bot"].map((p, i) => (
+            {["Victorian Ghost", "Life Coach", "Big Soup Agent", "Roaster", "Confident Expert", "Yes-And Bot", "JOHN"].map((p, i) => (
               <div
                 key={i}
                 onClick={() => setPersonality(p)}
