@@ -42,9 +42,9 @@ function App() {
 
       // Save to localStorage
       const updatedHistory = [
-        { id: sessionId, preview: message.slice(0, 40), messages: [...newMessages, { role: "john", content: data.reply }] },
+        { id: sessionId, preview: message.slice(0, 40), messages: [...newMessages, { role: "john", content: data.reply }], personality: personality },
         ...chatHistory.filter(c => c.id !== sessionId)
-      ].slice(0, 10) // keep last 10 chats
+      ].slice(0, 10)
 
       setChatHistory(updatedHistory)
       localStorage.setItem('john-history', JSON.stringify(updatedHistory))
@@ -105,6 +105,7 @@ function App() {
               setMessages(chat.messages)
               setSessionId(chat.id)
               setStarted(true)
+              setPersonality(chat.personality || "Victorian Ghost")
             }}
             style={{ flex: 1, overflow: "hidden", textOverflow: "ellipsis" }}
           >
