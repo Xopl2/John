@@ -5,7 +5,7 @@ Built with React, Node.js/Express, and Ollama (local LLM).
 ## Tech Stack
 - Frontend: React
 - Backend: Node.js + Express
-- AI: Ollama (Llama 3.1 8B)
+- AI: Ollama (llama3.2)
 
 ## Personalities
 Victorian ghost, 
