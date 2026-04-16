@@ -9,10 +9,10 @@ function ChatWindow({ messages }) {
   }, [messages])
 
   return (
-    <div style={{
+    <div style= {{
       flex: 1, overflowY: "auto", padding: "24px 32px",
       display: "flex", flexDirection: "column", gap: 6,
-      scrollbarWidth: "thin", scrollbarColor: "rgba(255,255,255,0.1) transparent"
+      scrollbarWidth: "thin", scrollbarColor: "rgba(255,255,255,0.1) transparent", paddingBottom: "140px"
     }}>
       {messages.map((msg, i) => (
         <div key={i} style={{

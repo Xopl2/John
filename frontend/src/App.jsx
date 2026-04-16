@@ -155,13 +155,24 @@ function App() {
 
         {/* ── Greeting Screen (before first message) ───────── */}
         {!started && (
-          <div style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "flex-start", paddingTop: 150, gap: 10 }}>
-            {/* Big John title - clicking opens personality drawer */}
+          <div style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "flex-start", paddingTop: "20vh", gap: 10 }}>
+            {/* Big John title */}
             <div
               onClick={() => setDrawerOpen(!drawerOpen)}
-              style={{ fontFamily: "'Instrument Serif', serif", fontSize: 150, color: "white", fontStyle: "italic", cursor: "pointer", letterSpacing: "-0.02em", textShadow: "0 0 30px rgba(180,100,255,0.7), 0 0 60px rgba(100,180,255,0.35)" }}
+              style={{
+                fontFamily: "'Instrument Serif', serif", fontSize: 150, color: "white",
+                fontStyle: "italic", cursor: "pointer", letterSpacing: "-0.02em",
+                textShadow: "0 0 30px rgba(180,100,255,0.7), 0 0 60px rgba(100,180,255,0.35)",
+                animation: "slideInLeft 0.5s ease"
+              }}
             >John</div>
-            <div style={{ fontSize: 12, fontFamily: "monospace", color: "rgba(255,255,255,0.3)", letterSpacing: "0.12em", textTransform: "uppercase" }}>expect the unexpected</div>
+
+            {/* Tagline */}
+            <div style={{
+              fontSize: 15, fontFamily: "monospace", color: "rgba(255,255,255,0.3)",
+              letterSpacing: "0.12em", textTransform: "uppercase",
+              animation: "slideInRight 0.5s ease"
+            }}>expect the unexpected</div>
           </div>
         )}
 
@@ -177,7 +188,7 @@ function App() {
           right: 0,
           zIndex: 5,
           background: "rgba(4,0,15,0.6)", backdropFilter: "blur(24px)",
-          borderTop: drawerOpen ? "0.5px solid rgba(255,255,255,0.08)" : "none",
+          borderTop: drawerOpen ? "none" : "none",
           maxHeight: drawerOpen ? "120px" : "0px",
           overflow: "hidden", transition: "max-height 0.3s ease",
           padding: drawerOpen ? "14px 24px" : "0 24px"
