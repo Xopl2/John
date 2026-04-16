@@ -10,8 +10,9 @@ Built with React, Node.js/Express, and Ollama (local LLM).
 ## Personalities
 Victorian ghost, 
 Pushy life coach, 
-Big soup agent, 
+conspiracy theorist, 
 roaster, 
 yes-and bot, 
 confidently wrong expert, 
+JOHN
 
